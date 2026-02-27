@@ -10,13 +10,10 @@
 [node name="Root" type="Node2D" unique_id=918599496]
 
 [node name="Ground" parent="." unique_id=673580990 instance=ExtResource("1_elqb8")]
-position = Vector2(296, 324)
+position = Vector2(296, 236)
 
 [node name="Ground2" parent="." unique_id=1551337937 instance=ExtResource("1_elqb8")]
 position = Vector2(856, 324)
-
-[node name="Ground3" parent="." unique_id=1648397147 instance=ExtResource("1_elqb8")]
-position = Vector2(576, 394)
 
 [node name="Ground4" parent="." unique_id=1858375427 instance=ExtResource("1_elqb8")]
 position = Vector2(1020, 158)
@@ -25,10 +22,13 @@ position = Vector2(1020, 158)
 position = Vector2(1326, 465)
 
 [node name="Ground6" parent="." unique_id=850937051 instance=ExtResource("1_elqb8")]
-position = Vector2(1718, 322)
+position = Vector2(1695, 270)
 
 [node name="Ground7" parent="." unique_id=1476050479 instance=ExtResource("1_elqb8")]
-position = Vector2(2094, 174)
+position = Vector2(2119, 124)
+
+[node name="Ground8" parent="." unique_id=1716404655 instance=ExtResource("1_elqb8")]
+position = Vector2(2328, -35)
 
 [node name="Ground9" parent="." unique_id=477555324 instance=ExtResource("1_elqb8")]
 position = Vector2(2465, 342)
@@ -43,7 +43,7 @@ position = Vector2(2751, 501)
 position = Vector2(2092, 505)
 
 [node name="Ground36" parent="." unique_id=485441366 instance=ExtResource("1_elqb8")]
-position = Vector2(899, 600)
+position = Vector2(545, 488)
 
 [node name="Ground14" parent="." unique_id=1418232080 instance=ExtResource("1_elqb8")]
 position = Vector2(3002, -107)
@@ -116,7 +116,7 @@ position = Vector2(47, 107)
 rotation = -1.5707964
 
 [node name="Mr_Player" parent="." unique_id=1927660901 instance=ExtResource("4_vcsgt")]
-position = Vector2(-102, 66)
+position = Vector2(-100, -24)
 script = ExtResource("5_c01mt")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=146229457]
@@ -129,6 +129,6 @@ motion_scale = Vector2(0.5, 0.5)
 motion_mirroring = Vector2(1080, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=285240975]
-position = Vector2(441.00006, 269.99997)
-scale = Vector2(1.5312926, 1.8768116)
+position = Vector2(605.50006, 283)
+scale = Vector2(1.6122451, 2.0386474)
 texture = ExtResource("1_rarhs")
