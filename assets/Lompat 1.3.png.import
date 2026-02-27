@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dppj4av8c2yku"
-path="res://.godot/imported/stone.png-3a1875e621a1b764516a9ea0026422f2.ctex"
+uid="uid://dn5d8q75ivgq"
+path="res://.godot/imported/Lompat 1.3.png-fcfb4fb1799d2519aa7a77a90368473b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/stone.png"
-dest_files=["res://.godot/imported/stone.png-3a1875e621a1b764516a9ea0026422f2.ctex"]
+source_file="res://assets/Lompat 1.3.png"
+dest_files=["res://.godot/imported/Lompat 1.3.png-fcfb4fb1799d2519aa7a77a90368473b.ctex"]
 
 [params]
 

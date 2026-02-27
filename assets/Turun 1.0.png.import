@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dppj4av8c2yku"
-path="res://.godot/imported/stone.png-3a1875e621a1b764516a9ea0026422f2.ctex"
+uid="uid://chsi86yncwaq6"
+path="res://.godot/imported/Turun 1.0.png-6fd7025685687885a3eb55413cdf73e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/stone.png"
-dest_files=["res://.godot/imported/stone.png-3a1875e621a1b764516a9ea0026422f2.ctex"]
+source_file="res://assets/Turun 1.0.png"
+dest_files=["res://.godot/imported/Turun 1.0.png-6fd7025685687885a3eb55413cdf73e0.ctex"]
 
 [params]
 

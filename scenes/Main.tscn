@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://dsyfep1odrxje"]
 
 [ext_resource type="PackedScene" uid="uid://ds60n6krsavle" path="res://scenes/Ground.tscn" id="1_elqb8"]
+[ext_resource type="Texture2D" uid="uid://bqvsusfl420to" path="res://assets/34c0802ec5c14ac34e7491bcb0e3cfb6.jpg" id="1_rarhs"]
+[ext_resource type="PackedScene" uid="uid://gep6rxtpwho6" path="res://scenes/Mr_player.tscn" id="4_vcsgt"]
+[ext_resource type="Script" uid="uid://d23qsjgcldkah" path="res://scenes/Mr_player.gd" id="5_c01mt"]
+
+[sub_resource type="TileSet" id="TileSet_0bbpv"]
 
 [node name="Root" type="Node2D" unique_id=918599496]
 
@@ -12,3 +17,118 @@ position = Vector2(856, 324)
 
 [node name="Ground3" parent="." unique_id=1648397147 instance=ExtResource("1_elqb8")]
 position = Vector2(576, 394)
+
+[node name="Ground4" parent="." unique_id=1858375427 instance=ExtResource("1_elqb8")]
+position = Vector2(1020, 158)
+
+[node name="Ground5" parent="." unique_id=1692356199 instance=ExtResource("1_elqb8")]
+position = Vector2(1326, 465)
+
+[node name="Ground6" parent="." unique_id=850937051 instance=ExtResource("1_elqb8")]
+position = Vector2(1718, 322)
+
+[node name="Ground7" parent="." unique_id=1476050479 instance=ExtResource("1_elqb8")]
+position = Vector2(2094, 174)
+
+[node name="Ground9" parent="." unique_id=477555324 instance=ExtResource("1_elqb8")]
+position = Vector2(2465, 342)
+
+[node name="Ground10" parent="." unique_id=2065484421 instance=ExtResource("1_elqb8")]
+position = Vector2(2740, 185)
+
+[node name="Ground33" parent="." unique_id=2106282698 instance=ExtResource("1_elqb8")]
+position = Vector2(2751, 501)
+
+[node name="Ground34" parent="." unique_id=1845491460 instance=ExtResource("1_elqb8")]
+position = Vector2(2092, 505)
+
+[node name="Ground36" parent="." unique_id=485441366 instance=ExtResource("1_elqb8")]
+position = Vector2(899, 600)
+
+[node name="Ground14" parent="." unique_id=1418232080 instance=ExtResource("1_elqb8")]
+position = Vector2(3002, -107)
+
+[node name="Ground15" parent="." unique_id=1369426382 instance=ExtResource("1_elqb8")]
+position = Vector2(2651, -107)
+
+[node name="Ground16" parent="." unique_id=2106451115 instance=ExtResource("1_elqb8")]
+position = Vector2(2300, -107)
+
+[node name="Ground17" parent="." unique_id=1127548823 instance=ExtResource("1_elqb8")]
+position = Vector2(1949, -107)
+
+[node name="Ground18" parent="." unique_id=1876043665 instance=ExtResource("1_elqb8")]
+position = Vector2(1598, -107)
+
+[node name="Ground19" parent="." unique_id=1463737752 instance=ExtResource("1_elqb8")]
+position = Vector2(1245, -107)
+
+[node name="Ground20" parent="." unique_id=2110359444 instance=ExtResource("1_elqb8")]
+position = Vector2(894, -107)
+
+[node name="Ground21" parent="." unique_id=187866764 instance=ExtResource("1_elqb8")]
+position = Vector2(543, -107)
+
+[node name="Ground22" parent="." unique_id=842963167 instance=ExtResource("1_elqb8")]
+position = Vector2(192, -107)
+
+[node name="Ground24" parent="." unique_id=2078557571 instance=ExtResource("1_elqb8")]
+position = Vector2(2291, 671)
+
+[node name="Ground25" parent="." unique_id=2083382626 instance=ExtResource("1_elqb8")]
+position = Vector2(1938, 671)
+
+[node name="Ground29" parent="." unique_id=971639815 instance=ExtResource("1_elqb8")]
+position = Vector2(2997, 671)
+
+[node name="Ground30" parent="." unique_id=315756364 instance=ExtResource("1_elqb8")]
+position = Vector2(2644, 671)
+
+[node name="Ground26" parent="." unique_id=2146682670 instance=ExtResource("1_elqb8")]
+position = Vector2(1587, 671)
+
+[node name="Ground27" parent="." unique_id=1688055102 instance=ExtResource("1_elqb8")]
+position = Vector2(1236, 671)
+
+[node name="Ground28" parent="." unique_id=432573392 instance=ExtResource("1_elqb8")]
+position = Vector2(885, 671)
+
+[node name="Ground23" parent="." unique_id=581655634 instance=ExtResource("1_elqb8")]
+position = Vector2(180, 671)
+
+[node name="Ground11" parent="." unique_id=15731430 instance=ExtResource("1_elqb8")]
+position = Vector2(535, 672)
+
+[node name="Ground12" parent="." unique_id=126603745 instance=ExtResource("1_elqb8")]
+position = Vector2(3141, 461)
+rotation = -1.5707964
+
+[node name="Ground13" parent="." unique_id=2042763145 instance=ExtResource("1_elqb8")]
+position = Vector2(3141, 107)
+rotation = -1.5707964
+
+[node name="Ground31" parent="." unique_id=1737662832 instance=ExtResource("1_elqb8")]
+position = Vector2(47, 461)
+rotation = -1.5707964
+
+[node name="Ground32" parent="." unique_id=845663608 instance=ExtResource("1_elqb8")]
+position = Vector2(47, 107)
+rotation = -1.5707964
+
+[node name="Mr_Player" parent="." unique_id=1927660901 instance=ExtResource("4_vcsgt")]
+position = Vector2(-102, 66)
+script = ExtResource("5_c01mt")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=146229457]
+tile_set = SubResource("TileSet_0bbpv")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1109523220]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=2078493892]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1080, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=285240975]
+position = Vector2(441.00006, 269.99997)
+scale = Vector2(1.5312926, 1.8768116)
+texture = ExtResource("1_rarhs")
