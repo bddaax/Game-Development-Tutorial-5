@@ -1,19 +1,11 @@
 [gd_scene format=3 uid="uid://gep6rxtpwho6"]
 
-[ext_resource type="Texture2D" uid="uid://dq0556m1dty5h" path="res://assets/Jalan 1.1.png" id="1_ih7ml"]
-[ext_resource type="Texture2D" uid="uid://c1pcdqlxlq7c" path="res://assets/Jalan 1.2.png" id="2_bbuea"]
-[ext_resource type="Texture2D" uid="uid://bjqo72ct7ciuo" path="res://assets/Jalan 1.0.png" id="3_58fe1"]
-[ext_resource type="Texture2D" uid="uid://c8i24vonn2st2" path="res://assets/Jalan 1.3.png" id="4_v75q6"]
-[ext_resource type="Texture2D" uid="uid://doafpx8800rht" path="res://assets/Jalan 1.4.png" id="5_xqewb"]
-[ext_resource type="Texture2D" uid="uid://dvhdj0k27nfh1" path="res://assets/Lompat 1.0.png" id="6_hf16h"]
-[ext_resource type="Texture2D" uid="uid://bsbcs7mbvhnnh" path="res://assets/Lompat 1.1.png" id="7_iqot6"]
-[ext_resource type="Texture2D" uid="uid://bd5kmcagfn5m1" path="res://assets/Lompat 1.2.png" id="8_ldpc2"]
-[ext_resource type="Texture2D" uid="uid://dn5d8q75ivgq" path="res://assets/Lompat 1.3.png" id="9_5sksh"]
-[ext_resource type="Texture2D" uid="uid://cv5pj3fkosp8g" path="res://assets/Lompat 1.4.png" id="10_140fw"]
-[ext_resource type="Texture2D" uid="uid://civs2vst3qwj2" path="res://assets/Lompat 1.5.png" id="11_5osmo"]
-[ext_resource type="Texture2D" uid="uid://chsi86yncwaq6" path="res://assets/Turun 1.0.png" id="12_7fdm4"]
-[ext_resource type="Texture2D" uid="uid://cs7ul6qb42m18" path="res://assets/Turun 1.1.png" id="13_fg46b"]
-[ext_resource type="Texture2D" uid="uid://u33elcge6dda" path="res://assets/Turun 1.2.png" id="14_k7feo"]
+[ext_resource type="Texture2D" uid="uid://xlww24vofahs" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_climb1.png" id="1_luy2f"]
+[ext_resource type="Texture2D" uid="uid://ccrv0og8se6hg" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_climb2.png" id="2_bkmbr"]
+[ext_resource type="Texture2D" uid="uid://7cvj7x3f1p4f" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_jump.png" id="3_0pbsj"]
+[ext_resource type="Texture2D" uid="uid://crwxfpuc8apsb" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_stand.png" id="4_ji1hh"]
+[ext_resource type="Texture2D" uid="uid://1os6b0r4r7uv" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_walk1.png" id="5_1ebyy"]
+[ext_resource type="Texture2D" uid="uid://dvan81w3wyxqs" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_walk2.png" id="6_8krut"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lq14"]
 size = Vector2(91, 120)
@@ -22,89 +14,55 @@ size = Vector2(91, 120)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_xqewb")
+"texture": ExtResource("1_luy2f")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_fg46b")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_k7feo")
-}],
-"loop": false,
-"name": &"Dash",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_ih7ml")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_bbuea")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_58fe1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_v75q6")
+"texture": ExtResource("2_bkmbr")
 }],
 "loop": true,
-"name": &"Jalan",
+"name": &"climb",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_xqewb")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_hf16h")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_iqot6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_ldpc2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_5sksh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_140fw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_5osmo")
+"texture": ExtResource("3_0pbsj")
 }],
-"loop": false,
-"name": &"Lompat",
+"loop": true,
+"name": &"jump",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_7fdm4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_fg46b")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_k7feo")
+"texture": ExtResource("4_ji1hh")
 }],
-"loop": false,
-"name": &"Turun",
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_1ebyy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8krut")
+}],
+"loop": true,
+"name": &"walk",
 "speed": 5.0
 }]
 
 [node name="Mr_Player" type="CharacterBody2D" unique_id=1927660901]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=201065958]
-position = Vector2(274.5, 163)
+position = Vector2(338.37143, 59.375)
 shape = SubResource("RectangleShape2D_7lq14")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1606571049]
-position = Vector2(278.3125, 154.68752)
-scale = Vector2(0.31053242, 0.28391206)
+position = Vector2(336.37143, 63.375)
+scale = Vector2(1.1285712, 1.0833334)
 sprite_frames = SubResource("SpriteFrames_kxt17")
-animation = &"Dash"
-frame = 2
-frame_progress = 1.0
+animation = &"walk"
+frame_progress = 0.8681861
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=985293853]
-position = Vector2(280, 157)
+position = Vector2(343.87143, 53.375)
