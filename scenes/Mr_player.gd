@@ -11,16 +11,17 @@ extends CharacterBody2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var collision_shape = $CollisionShape2D
 @onready var jump_sound = $JumpSound
-@onready var fall_sound = $FallSound
 
 # === STATE ===
 var facing_direction = 1
 var jump_count = 0
 var is_running = false
 var is_climbing = false
-var is_dead = false             # Saat animasi jatoh / suara fall berlangsung
+var is_dead = false
+var is_hurt = false
+var hit_cooldown = 0.0
 
-# === DOUBLE TAP DETECTION ===
+# === DOUBLE TAP ===
 var tap_timer_right = 0.0
 var tap_timer_left = 0.0
 var tap_cooldown = 0.3
@@ -29,16 +30,13 @@ var first_tap_left = false
 var run_duration = 0.0
 var run_max_duration = 0.8
 
-# Dipanggil dari FallZone
 func trigger_fall(spawn_point: Vector2) -> void:
 	if is_dead:
 		return
 	is_dead = true
 	velocity = Vector2.ZERO
-	fall_sound.play()
-	animated_sprite.play("jump")  # Pakai animasi jump sebagai "jatoh"
-	# Tunggu suara selesai lalu respawn
-	await fall_sound.finished
+	animated_sprite.play("jump")
+	await get_tree().create_timer(0.8).timeout
 	_respawn(spawn_point)
 
 func _respawn(spawn_point: Vector2) -> void:
@@ -48,30 +46,61 @@ func _respawn(spawn_point: Vector2) -> void:
 	is_running = false
 	is_climbing = false
 	is_dead = false
+	is_hurt = false
+	hit_cooldown = 0.0
 	exit_ladder()
+
+func take_hit(hit_direction: int) -> void:
+	if is_hurt or is_dead:
+		return
+	is_hurt = true
+	animated_sprite.play("hurt")
+	velocity = Vector2(hit_direction * -450, -250)
+	# Tunggu animasi hurt selesai lalu bisa gerak lagi
+	await animated_sprite.animation_finished
+	is_hurt = false
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
-		return  # Freeze input saat animasi jatoh
+		return
+
+	if hit_cooldown > 0:
+		hit_cooldown -= delta
+
+	if is_hurt:
+		velocity.y += gravity * delta
+		if is_on_floor():
+			velocity.y = 0
+		move_and_slide()
+		return
 
 	_handle_double_tap(delta)
-	
+
 	if is_climbing:
 		_handle_climb(delta)
 	else:
 		_handle_gravity(delta)
 		_handle_jump()
 		_handle_movement(delta)
-	
+
 	_update_animation()
 	move_and_slide()
-	
+
 	if is_on_floor() and not is_climbing:
 		jump_count = 0
 
-# =============================================
-# DOUBLE TAP UNTUK LARI
-# =============================================
+	# Deteksi tabrakan dengan Player2
+	if hit_cooldown <= 0:
+		for i in get_slide_collision_count():
+			var col = get_slide_collision(i)
+			var collider = col.get_collider()
+			if collider and collider.has_method("take_hit"):
+				var dir = sign(global_position.x - collider.global_position.x)
+				collider.take_hit(dir * -1)
+				take_hit(dir)
+				hit_cooldown = 1.0
+				break
+
 func _handle_double_tap(delta: float) -> void:
 	if tap_timer_right > 0:
 		tap_timer_right -= delta
@@ -108,18 +137,12 @@ func _handle_double_tap(delta: float) -> void:
 		is_running = false
 		first_tap_left = false
 
-# =============================================
-# GRAVITY
-# =============================================
 func _handle_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
 		velocity.y = 0
 
-# =============================================
-# JUMP
-# =============================================
 func _handle_jump() -> void:
 	if Input.is_action_just_pressed("ui_up") and jump_count < max_jumps:
 		velocity.y = jump_speed
@@ -127,12 +150,8 @@ func _handle_jump() -> void:
 		is_climbing = false
 		jump_sound.play()
 
-# =============================================
-# MOVEMENT
-# =============================================
 func _handle_movement(_delta: float) -> void:
 	var speed = run_speed if is_running else walk_speed
-
 	if Input.is_action_pressed("ui_right"):
 		velocity.x = speed
 		facing_direction = 1
@@ -145,18 +164,13 @@ func _handle_movement(_delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, walk_speed)
 		is_running = false
 
-# =============================================
-# CLIMB
-# =============================================
-func _handle_climb(delta: float) -> void:
+func _handle_climb(_delta: float) -> void:
 	velocity.x = 0
 	velocity.y = 0
-	
 	if Input.is_action_pressed("ui_up"):
 		velocity.y = -climb_speed
 	elif Input.is_action_pressed("ui_down"):
 		velocity.y = climb_speed
-	
 	if Input.is_action_pressed("ui_right"):
 		velocity.x = walk_speed * 0.5
 		animated_sprite.flip_h = false
@@ -171,21 +185,18 @@ func enter_ladder() -> void:
 func exit_ladder() -> void:
 	is_climbing = false
 
-# =============================================
-# ANIMASI
-# =============================================
 func _update_animation() -> void:
+	if is_hurt:
+		return
 	if is_climbing:
 		if velocity.y != 0 or velocity.x != 0:
 			animated_sprite.play("climb")
 		else:
 			animated_sprite.stop()
 		return
-
 	if not is_on_floor():
 		animated_sprite.play("jump")
 		return
-
 	if velocity.x != 0:
 		animated_sprite.play("walk")
 		animated_sprite.speed_scale = 2.0 if is_running else 1.0

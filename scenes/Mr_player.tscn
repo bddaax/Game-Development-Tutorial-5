@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://xlww24vofahs" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_climb1.png" id="1_luy2f"]
 [ext_resource type="Texture2D" uid="uid://ccrv0og8se6hg" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_climb2.png" id="2_bkmbr"]
 [ext_resource type="Texture2D" uid="uid://7cvj7x3f1p4f" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_jump.png" id="3_0pbsj"]
+[ext_resource type="Texture2D" uid="uid://bqigndx57ebc" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_hurt.png" id="3_bkmbr"]
 [ext_resource type="Texture2D" uid="uid://crwxfpuc8apsb" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_stand.png" id="4_ji1hh"]
 [ext_resource type="Texture2D" uid="uid://1os6b0r4r7uv" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_walk1.png" id="5_1ebyy"]
 [ext_resource type="Texture2D" uid="uid://dvan81w3wyxqs" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_walk2.png" id="6_8krut"]
@@ -21,6 +22,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"climb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bkmbr")
+}],
+"loop": false,
+"name": &"hurt",
 "speed": 5.0
 }, {
 "frames": [{
@@ -54,15 +63,14 @@ animations = [{
 [node name="Mr_Player" type="CharacterBody2D" unique_id=1927660901]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=201065958]
-position = Vector2(338.37143, 59.375)
+position = Vector2(338, 53)
 shape = SubResource("RectangleShape2D_7lq14")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1606571049]
 position = Vector2(336.37143, 63.375)
 scale = Vector2(1.1285712, 1.0833334)
 sprite_frames = SubResource("SpriteFrames_kxt17")
-animation = &"walk"
-frame_progress = 0.8681861
+animation = &"hurt"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=985293853]
 position = Vector2(343.87143, 53.375)
