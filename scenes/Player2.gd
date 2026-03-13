@@ -57,11 +57,11 @@ func take_hit(hit_direction: int) -> void:
 		return
 	is_hurt = true
 	is_standing = false
-	var resume_direction = direction  # Simpan arah sebelum kena hit
+	var resume_direction = direction
 	animated_sprite.play("hurt")
 	velocity = Vector2(hit_direction * 250, -200)
-	await animated_sprite.animation_finished
-	# Stand sebentar lalu lanjut jalan arah yang sama
+	# Pakai timer biar pasti selesai, tidak bergantung animation_finished
+	await get_tree().create_timer(0.6).timeout
 	animated_sprite.play("stand")
 	await get_tree().create_timer(0.5).timeout
 	direction = resume_direction

@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var collision_shape = $CollisionShape2D
 @onready var jump_sound = $JumpSound
+@onready var hurt_sound = $HurtSound
 
 # === STATE ===
 var facing_direction = 1
@@ -54,6 +55,7 @@ func take_hit(hit_direction: int) -> void:
 	if is_hurt or is_dead:
 		return
 	is_hurt = true
+	hurt_sound.play()
 	animated_sprite.play("hurt")
 	velocity = Vector2(hit_direction * -450, -250)
 	# Tunggu animasi hurt selesai lalu bisa gerak lagi

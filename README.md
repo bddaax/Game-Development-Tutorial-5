@@ -23,30 +23,73 @@
 <br>
 
 <details>
-<summary><h2>Tutorial 3: Eksplorasi Mekanika Pergerakan Karakter</h2></summary>
+<summary><h2>Tutorial 5: Eksplorasi Animasi Spritesheet dan Audio</h2></summary>
 
-Pada bagian Latihan Mandiri di Tutorial 3 ini, saya melakukan eksplorasi dan implementasi mekanika pergerakan karakter lanjutan (*Advanced 2D Movement*) untuk permainan tipe *platformer*. Entitas karakter utama (`Mr_player`) telah dikonfigurasi untuk menggunakan `AnimatedSprite2D` dengan transisi *state* animasi yang komprehensif serta ukuran *hitbox* yang bersifat dinamis.
+Pada bagian Latihan Mandiri di Tutorial 5 ini, saya melakukan eksplorasi dan implementasi sistem animasi berbasis *spritesheet* serta integrasi audio ke dalam permainan *platformer*. Karakter utama (`Mr_Player`) diganti dengan aset *spritesheet* baru dari koleksi Kenney, dilengkapi dengan sistem pergerakan, animasi, interaksi objek baru, dan *audio feedback*.
 
-### Implementasi Fitur dan Pemetaan Kontrol
+### Implementasi Objek Baru: Player2 (Alien Pink)
 
-Berikut adalah rincian mekanika pergerakan yang telah dikembangkan beserta pemetaan kontrol (*key mapping*) yang digunakan:
+Objek baru yang ditambahkan adalah **Player2**, sebuah karakter NPC berbasis `CharacterBody2D` yang menggunakan *spritesheet* `alienPink` dari koleksi aset gratis Kenney. Player2 berfungsi sebagai rintangan bergerak yang berpatroli secara otomatis di dalam level.
 
-| Fitur / Aksi | Tombol Input | Deskripsi Implementasi Teknis |
+**Animasi Player2** menggunakan `AnimatedSprite2D` dengan tiga *state* animasi:
+
+| Animasi | Kondisi |
+| :--- | :--- |
+| `stand` | Berhenti di ujung patrol atau saat pertama muncul (1 detik) |
+| `walk` | Bergerak patroli kiri-kanan sepanjang 8 tile |
+| `hurt` | Ketika bertabrakan dengan `Mr_Player` |
+
+**Mekanika Patrol Player2:**
+- Bergerak bolak-balik sejauh **8 tile (560px)** secara otomatis
+- Diawali dengan animasi `stand` selama 1 detik
+- Setiap kali sampai di ujung patrol → `stand` 1 detik → balik arah
+- Dilengkapi deteksi tepi menggunakan *raycast* agar tidak jatuh dari platform
+- Setelah kena *hit*, mundur sesaat → `stand` 0.5 detik → lanjut patroli ke arah semula
+
+### Implementasi Fitur Mr_Player (Karakter Baru)
+
+Karakter utama diganti dengan *spritesheet* baru dan sistem pergerakan yang diperluas:
+
+| Fitur / Aksi | Tombol Input | Deskripsi |
 | :--- | :---: | :--- |
-| **Berjalan (*Walk*)** | <kbd>Kiri</kbd> / <kbd>Kanan</kbd> | Karakter bergerak secara horizontal dengan parameter kecepatan konstan. Orientasi visual karakter (*sprite*) akan dibalik secara otomatis (`flip_h`) menyesuaikan dengan arah vektor pergerakan. |
-| **Lompat Udara (*Infinite Jump*)** | <kbd>Atas</kbd> | Karakter dapat melakukan lompatan, baik saat menyentuh pijakan (*floor*) maupun saat berada di udara tanpa batasan jumlah. Pemutaran animasi dimanipulasi melalui skrip untuk mengulang *frame* secara spesifik, sehingga menghasilkan efek visual berulang yang natural. |
-| **Merunduk (*Crouch*)** | <kbd>Bawah</kbd> (Ditahan) | Karakter melakukan aksi merunduk. Secara teknis, dimensi vertikal pada objek `CollisionShape2D` (*hitbox*) direduksi secara dinamis menjadi 50% dari ukuran normalnya. Hal ini mengizinkan interaksi fisik karakter untuk melewati lorong atau celah rintangan yang sempit. |
-| **Merangkak (*Crawl*)** | <kbd>Bawah</kbd> + <kbd>Kiri</kbd>/<kbd>Kanan</kbd> | Integrasi antara *state* merunduk dan pergerakan horizontal. Karakter tetap dapat berpindah posisi, namun dengan nilai translasi kecepatan yang telah dikalkulasi ulang dan direduksi (*crouch speed*). |
-| **Melesat (*Dash*)** | <kbd>Shift</kbd> | Karakter mengabaikan limitasi kecepatan normal dan melesat maju selama 0.25 detik. Pada *state* ini, simulasi gravitasi dinonaktifkan sementara (`velocity.y = 0`), menghasilkan translasi horizontal murni ke arah hadap terakhir karakter. |
+| **Berjalan (*Walk*)** | <kbd>Kiri</kbd> / <kbd>Kanan</kbd> | Bergerak horizontal, sprite otomatis `flip_h` sesuai arah |
+| **Lari (*Run*)** | Double tap <kbd>Kiri</kbd> / <kbd>Kanan</kbd> | Kecepatan 2x lipat selama ±0.8 detik, animasi dipercepat |
+| **Multi-Jump** | <kbd>Atas</kbd> (max 5x) | Dapat melompat berulang kali di udara, maksimal 5 kali |
+| **Climb** | Masuk area tangga + <kbd>Atas</kbd>/<kbd>Bawah</kbd> | Naik/turun tangga saat berada di `Area2D` bertanda ladder |
+| **Hurt** | Tabrakan dengan Player2 | Animasi `hurt` + *knockback* mundur, lalu bisa bergerak kembali |
 
-### Implementasi Visual Lingkungan
-* **Infinite Parallax Background:** Latar belakang permainan diimplementasikan menggunakan arsitektur *node* `ParallaxBackground` dan `ParallaxLayer`. Menggunakan fitur *Mirroring*, tekstur latar belakang dirender secara berulang tanpa batas (*infinite loop*) menyesuaikan posisi kamera, sekaligus memberikan ilusi kedalaman spasial.
+### Implementasi Interaksi Objek
 
-### Referensi Dokumentasi
+Interaksi antara `Mr_Player` dan `Player2` dideteksi melalui `get_slide_collision()` pada `_physics_process`. Saat bertabrakan:
+
+1. Kedua karakter memainkan animasi `hurt`
+2. Keduanya mendapat *knockback* ke arah berlawanan (Mr_Player lebih jauh)
+3. Terdapat *hit cooldown* 1 detik untuk mencegah *spam* tabrakan
+4. Setelah animasi `hurt` selesai, keduanya kembali ke aktivitas normal
+
+### Implementasi Audio
+
+| Audio | Node | Kondisi Pemutaran |
+| :--- | :--- | :--- |
+| `opening.wav` | `AudioStreamPlayer` (Root) | Diputar otomatis saat game pertama dimulai |
+| `background.mp3` | `BackgroundMusic` (Root) | Musik latar yang diputar terus-menerus (*loop*) selama game berjalan |
+| `jump.wav` | `JumpSound` (Mr_Player) | Diputar setiap kali Mr_Player melompat (termasuk multi-jump) |
+| `hurt.mp3` | `HurtSound` (Mr_Player) | Diputar saat Mr_Player bertabrakan dengan Player2 |
+
+### Implementasi Fall Zone
+
+Area jatuh diimplementasikan menggunakan `Area2D` bernama `Fall` yang diletakkan di bawah level. Saat `Mr_Player` memasuki area ini:
+
+1. Input diblokir (*freeze*)
+2. Animasi `jump` diputar sebagai efek jatuh
+3. Player di-*respawn* ke posisi awal yang disimpan otomatis saat `_ready()`
+
+### Referensi
 
 [![CharacterBody2D](https://img.shields.io/badge/-CharacterBody2D-808080?style=for-the-badge&logo=godotengine&logoColor=white)](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html)
 [![AnimatedSprite2D](https://img.shields.io/badge/-AnimatedSprite2D-808080?style=for-the-badge&logo=godotengine&logoColor=white)](https://docs.godotengine.org/en/stable/classes/class_animatedsprite2d.html)
-[![ParallaxBackground](https://img.shields.io/badge/-ParallaxBackground-808080?style=for-the-badge&logo=godotengine&logoColor=white)](https://docs.godotengine.org/en/stable/classes/class_parallaxbackground.html)
+[![AudioStreamPlayer](https://img.shields.io/badge/-AudioStreamPlayer-808080?style=for-the-badge&logo=godotengine&logoColor=white)](https://docs.godotengine.org/en/stable/classes/class_audiostreamplayer.html)
+[![Area2D](https://img.shields.io/badge/-Area2D-808080?style=for-the-badge&logo=godotengine&logoColor=white)](https://docs.godotengine.org/en/stable/classes/class_area2d.html)
+[![Kenney Assets](https://img.shields.io/badge/-Kenney_Assets-F7C948?style=for-the-badge&logoColor=black)](https://kenney.nl/assets)
 
-</details>
 </details>

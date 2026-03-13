@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://crwxfpuc8apsb" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_stand.png" id="4_ji1hh"]
 [ext_resource type="Texture2D" uid="uid://1os6b0r4r7uv" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_walk1.png" id="5_1ebyy"]
 [ext_resource type="Texture2D" uid="uid://dvan81w3wyxqs" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienBeige_walk2.png" id="6_8krut"]
+[ext_resource type="AudioStream" uid="uid://cyxb12mpm7551" path="res://assets/hurt.mp3" id="8_0pbsj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lq14"]
 size = Vector2(91, 120)
@@ -74,3 +75,6 @@ animation = &"hurt"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=985293853]
 position = Vector2(343.87143, 53.375)
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="." unique_id=1730015053]
+stream = ExtResource("8_0pbsj")

@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cniykbjrrieu4" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_walk1.png" id="12_mwfav"]
 [ext_resource type="Texture2D" uid="uid://ea2s7h5pw3md" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_walk2.png" id="13_3p2gp"]
 [ext_resource type="Texture2D" uid="uid://c07gyowcwhv0b" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_stand.png" id="13_cvmbd"]
+[ext_resource type="AudioStream" uid="uid://btgingsbaeihl" path="res://assets/background.mp3" id="16_cvmbd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhr70"]
 texture = ExtResource("3_c01mt")
@@ -652,6 +653,7 @@ tile_set = SubResource("TileSet_0bbpv")
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1109523220]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=2078493892]
+motion_scale = Vector2(0.3, 0.3)
 motion_mirroring = Vector2(1080, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=285240975]
@@ -678,5 +680,9 @@ shape = SubResource("RectangleShape2D_cvmbd")
 position = Vector2(4115, -46)
 sprite_frames = SubResource("SpriteFrames_ft6cd")
 animation = &"stand"
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="." unique_id=1205669839]
+stream = ExtResource("16_cvmbd")
+volume_db = -25.124
 
 [connection signal="body_entered" from="Fall" to="Fall" method="_on_body_entered"]
